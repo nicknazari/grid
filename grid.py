@@ -37,6 +37,11 @@ class Grid:
         basey = y*self.increment
         cv2.rectangle(self.img, (basex, basey), (basex + self.increment, basey + self.increment), (b,g,r), -1)
 
+    def get(self, x, y):
+        # add this method to get color at a position
+        return self.img[x*self.increment,y*self.increment]
+
+
     def randomColor(self):
         return (random.randint(0,255),random.randint(0,255),random.randint(0,255)) 
 
@@ -46,7 +51,7 @@ class Grid:
 
 
 if __name__ == "__main__":
-    for i in range(9):
-        mygrid = Grid(512, 2 ** i)
-        mygrid.randomFill()
-        mygrid.show()
+    mygrid = Grid(512, 2)
+    mygrid.set(1,1,255,155,55)
+    print(mygrid.get(1,1))
+    mygrid.show()
