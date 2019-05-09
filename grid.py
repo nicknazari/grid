@@ -26,6 +26,16 @@ class Grid:
         
     def show(self):
         cv2.imshow('Grid', self.img)
+
+        # configuring click event handler function
+        def clickHandler(event, x, y, flags, params):
+            if event == cv2.EVENT_LBUTTONDOWN:
+                print(x//self.increment,y//self.increment)
+                self.set(x//self.increment, y//self.increment, 0,0,255)
+                self.show()
+
+        cv2.setMouseCallback('Grid', clickHandler)
+
         cv2.waitKey(0)
 
     def kill(self):
@@ -41,7 +51,6 @@ class Grid:
         # add this method to get color at a position
         return self.img[x*self.increment,y*self.increment]
 
-
     def randomColor(self):
         return (random.randint(0,255),random.randint(0,255),random.randint(0,255)) 
 
@@ -51,7 +60,11 @@ class Grid:
 
 
 if __name__ == "__main__":
-    mygrid = Grid(512, 2)
-    mygrid.set(1,1,255,155,55)
-    print(mygrid.get(1,1))
+    bad = [0,0,255]
+    good = [0,255,0]
+    mygrid = Grid(512, 4)
+    mygrid.set(1,1,*bad)
+    mygrid.set(1,3,*good)
+    mygrid.set(0,0,*good)
+    print(mygrid.get(0,0))
     mygrid.show()
